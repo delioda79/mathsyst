@@ -102,6 +102,34 @@ func (s System) Diff(n,m string) (string, error) {
 	return s.FromDec(dn-dm), nil
 }
 
+func (s System) Mult(n,m string) (string, error) {
+	dn, err := s.ToDec(n)
+	if err != nil {
+		return "", err
+	}
+
+	dm, err := s.ToDec(m)
+	if err != nil {
+		return "", err
+	}
+
+	return s.FromDec(dn*dm), nil
+}
+
+func (s System) Div(n,m string) (string, error) {
+	dn, err := s.ToDec(n)
+	if err != nil {
+		return "", err
+	}
+
+	dm, err := s.ToDec(m)
+	if err != nil {
+		return "", err
+	}
+
+	return s.FromDec(dn/dm), nil
+}
+
 func NewSystem(al string) System {
 	s := System{
 		toDec: map[string]int{},

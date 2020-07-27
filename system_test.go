@@ -163,3 +163,104 @@ func TestSystem_Diff(t *testing.T) {
 		})
 	}
 }
+
+func TestSystem_Mult(t *testing.T) {
+	dd := []struct{
+		name string
+		alphabet string
+		toTest []struct {
+			n,m, f string
+		}
+	} {
+		{
+			name: "Hex",
+			alphabet: Hex,
+			toTest: []struct {
+				n,m,f string
+			}{
+				{n:"0",m:"0", f: "0"},
+				{"0", "1", "0"},
+				{"1", "1","1"},
+				{"-1", "1", "-1"},
+				{"-1", "-1", "1"},
+				{"-f", "2", "-1e"},
+			},
+		},
+		{
+			name: "Bin",
+			alphabet: BI,
+			toTest: []struct {
+				n,m,f string
+			}{
+				{n:"0",m:"0", f: "0"},
+				{"0", "1", "0"},
+				{"10", "1","10"},
+				{"10", "10", "100"},
+				{"101", "10", "1010"},
+				{"-10", "-10", "100"},
+				{"-11", "10", "-110"},
+			},
+		},
+	}
+
+	for _,d:= range dd {
+		t.Run(d.name, func(t *testing.T) {
+			s := NewSystem(d.alphabet)
+			for _, td := range d.toTest {
+				m, err := s.Mult(td.n, td.m)
+				if err != nil {
+					t.Errorf(err.Error())
+				}
+				if m != td.f {
+					t.Errorf("the strings do not match: %s, %s", td.f, m)
+				}
+			}
+		})
+	}
+}
+
+func TestSystem_Div(t *testing.T) {
+	dd := []struct{
+		name string
+		alphabet string
+		toTest []struct {
+			n,m, f string
+		}
+	} {
+		{
+			name: "Hex",
+			alphabet: Hex,
+			toTest: []struct {
+				n,m,f string
+			}{
+				{n:"14",m:"2", f: "a"},
+				{"-f", "5", "-3"},
+			},
+		},
+		{
+			name: "Bin",
+			alphabet: BI,
+			toTest: []struct {
+				n,m,f string
+			}{
+				{n:"10",m:"10", f: "1"},
+				{"111", "-10", "-11"},
+			},
+		},
+	}
+
+	for _,d:= range dd {
+		t.Run(d.name, func(t *testing.T) {
+			s := NewSystem(d.alphabet)
+			for _, td := range d.toTest {
+				m, err := s.Div(td.n, td.m)
+				if err != nil {
+					t.Errorf(err.Error())
+				}
+				if m != td.f {
+					t.Errorf("the strings do not match: %s, %s", td.f, m)
+				}
+			}
+		})
+	}
+}
