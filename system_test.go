@@ -264,3 +264,31 @@ func TestSystem_Div(t *testing.T) {
 		})
 	}
 }
+
+func TestSystem_WithLeadingZeros(t *testing.T) {
+	s := NewSystem("a123456")
+
+	dd := []struct {
+		name string
+		n string
+		c int
+		exp string
+	}{
+		{"5 zeros", "1", 5, "aaaa1"},
+		{"4 zeros", "11", 5, "aaa11"},
+		{"1 zeros", "2211", 5, "a2211"},
+		{"0 zeros", "32211", 5, "32211"},
+		{"1 bigger", "432211", 5, "432211"},
+		{"2 bigger", "1432211", 5, "1432211"},
+		{"already leading", "aa32211", 5, "aa32211"},
+	}
+
+	for _, d := range dd {
+		t.Run(d.name, func(t *testing.T) {
+			r := s.WithLeadingZeros(d.n, d.c)
+			if r != d.exp {
+				t.Errorf("expected %s but got %s\n", d.exp, r)
+			}
+		})
+	}
+}

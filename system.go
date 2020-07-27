@@ -130,6 +130,15 @@ func (s System) Div(n,m string) (string, error) {
 	return s.FromDec(dn/dm), nil
 }
 
+func (s System) WithLeadingZeros(n string, c int) string {
+	var f string
+	zs := int(math.Max(0, float64(c-len(n))))
+	for i:=0; i<zs; i++ {
+		f += s.decTo[0]
+	}
+	return f+n
+}
+
 func NewSystem(al string) System {
 	s := System{
 		toDec: map[string]int{},
