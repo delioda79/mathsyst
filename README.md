@@ -19,7 +19,7 @@ It is also possible to define a binary system as:
   alphabet := "ft"
 ```
 
-and so on. It is possiboe to convert from a custom system to decimal and vice-versa:
+and so on. It is possible to convert from a custom system to decimal and vice-versa:
 
 ```
   s := mathsyst.NewSystem("0123")
