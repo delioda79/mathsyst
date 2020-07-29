@@ -13,7 +13,7 @@ To get a heptary numerical system, or to define something like:
 ```
  alphabet := "abcdefg"
 ```
-Where the character "a" represents teh ZERO in this system and so on.  
+Where the character "a" represents the ZERO in this system and so on.  
 It is also possible to define a binary system as:  
 ```
   alphabet := "ft"
